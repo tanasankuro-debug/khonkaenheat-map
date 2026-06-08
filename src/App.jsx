@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, lazy, Suspense } from 'react';
 import MapView from './components/MapView';
 import Sidebar from './components/Sidebar';
 import BottomNav from './components/BottomNav';
@@ -7,6 +7,8 @@ import SimulationView from './components/SimulationView';
 import RiskAreasView from './components/RiskAreasView';
 import RecurringView from './components/RecurringView';
 import ChatBotView from './components/ChatBotView';
+
+const WindMapView = lazy(() => import('./components/WindMapView'));
 import ForecastTimePicker, { toApiStr } from './components/ForecastTimePicker';
 import MonthPicker from './components/MonthPicker';
 import { useRealtimeWeather } from './hooks/useRealtimeWeather';
@@ -121,6 +123,15 @@ export default function App() {
           lastUpdated={lastUpdated}
           onRefresh={refreshWeather}
         />
+      )}
+
+      {/* ── Wind map tab ── */}
+      {activeTab === 'wind' && (
+        <div className="absolute top-0 right-0" style={{ left: 'var(--nav-x)', bottom: 'var(--nav-bottom)' }}>
+          <Suspense fallback={<div className="flex items-center justify-center h-full text-slate-400 text-sm">กำลังโหลดแผนที่...</div>}>
+            <WindMapView />
+          </Suspense>
+        </div>
       )}
 
       {/* ── Simulation tab ── */}

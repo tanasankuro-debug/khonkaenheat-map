@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@maptiler/sdk": "^4.0.2",
+    "@maptiler/weather": "^3.1.1",
     "antd": "^6.4.3",
     "leaflet": "^1.9.4",
     "leaflet.heat": "^0.2.0",
